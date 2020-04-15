@@ -31,7 +31,7 @@ def fitnessFunctDistance(cities, problParam):
     positions=problParam['graph']
     for i in range(len(cities) - 1):
         cost = cost + distEuclid(positions[cities[i]], positions[cities[i + 1]])
-    return 1 / cost
+    return cost
 
 
 def dist(repres, problParams):
