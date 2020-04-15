@@ -84,16 +84,15 @@ class GA:
         self.evaluation()
         
     def oneGenerationSteadyState(self):
+        self.__population = sorted(self.__population, key=lambda x: x.fitness)
         for _ in range(self.__param['popSize']):
-            '''p1 = self.__population[self.selection()]
-            p2 = self.__population[self.selection()]'''
-            p1 = self.__population[self.rouletteSelection()]
-            p2 = self.__population[self.rouletteSelection()]
+            p1 = self.__population[self.selection()]
+            p2 = self.__population[self.selection()]
             off = p1.crossover(p2)
             off.mutation()
-            off.fitness = self.__problParam['functionFitness'](off.repres,self.__problParam)
-            worst = self.worstChromosome()
-            if (off.fitness > worst.fitness):
-                worst = off
+            off.fitness = self.__problParam['functionFitness'](off.repres, self.__problParam)
+            worst = self.__population[-1]
+            if off.fitness < worst.fitness:
+                self.__population[-1] = off
         self.evaluation()
    
